@@ -1,8 +1,85 @@
-# AgentCore · SRE Demo
+# SREDemo
 
-> **An AI agent that investigates, plans, and remediates production incidents — with human oversight at every critical decision.**
+> **Hackathon Submission — AI-powered SRE incident remediation with human oversight, plan memory, and live context management.**
 
-A P1 incident at 3 AM costs an average **$5,600 per minute** in lost revenue (Gartner). A senior SRE spends **45–90 minutes** per incident on triage alone. AgentCore SRE Demo shows how an agentic framework cuts that to **under 5 minutes** — without removing the human from the loop.
+---
+
+> [!IMPORTANT]
+> **What we built — from scratch — for this hackathon:**
+>
+> | | |
+> |---|---|
+> | **5 production services** | AuthService · AgentGateway · AgentCore · RegistryService · SREDemo |
+> | **1 React web UI** | Real-time SSE streaming · Budget gauge · Plan history · HITL approval |
+> | **Plan Memory** | Agent learns from past incidents and injects few-shot examples into the planner |
+> | **Context budget management** | Token estimation · sliding window compaction · live gauge — made visible to the user |
+> | **Human-in-the-loop** | Hard stop before any remediation action — not advisory, not optional |
+> | **121 tests in AgentCore** | Unit + integration coverage across all 9 agent nodes |
+> | **Full mock mode** | Zero external credentials needed — runs completely offline |
+>
+> Every service is new. The entire platform was designed and built specifically for this submission.
+
+---
+
+## The Problem
+
+A P1 incident at 3 AM costs an average **$5,600 per minute** in lost revenue (Gartner, 2023).
+A senior SRE spends **45–90 minutes** per incident on triage — not because they are slow, but because the investigation is genuinely hard.
+
+The real cost is not the outage. It is the cognitive load: correlating signals across AWS, Datadog, PagerDuty, and Kubernetes while exhausted, under pressure, and interrupted by stakeholders every 10 minutes.
+
+## What We Built
+
+An AI agent that does the investigation for you — and then **asks your permission** before touching anything in production.
+
+```
+SRE types one sentence →  agent investigates → agent proposes a plan
+                        →  you approve       → agent executes step by step
+                        →  you get a report
+```
+
+**Time to remediation: under 5 minutes.** The human stays in the loop at the only moment that matters: the decision to act.
+
+---
+
+## Live Demo
+
+```bash
+git clone https://github.com/thelastmile-ai/SREDemo
+cd SREDemo && cp .env.example .env
+docker compose up --build   # → http://localhost:3000
+```
+
+No AWS, Datadog, or PagerDuty credentials needed. Full mock mode ships by default.
+Set `USE_MOCK_LLM=false` and add `ANTHROPIC_API_KEY` for live Claude-powered execution.
+
+---
+
+## What Makes This Different
+
+### Plan Memory — the agent gets smarter with every incident
+
+Most agents start from zero every time. Ours doesn't. Every resolved incident is stored and the agent retrieves the most relevant past resolution before planning a new one. The UI shows exactly which past incident the agent learned from — with a **"Few-shot used by agent"** badge on the history card.
+
+### Context budget management — made visible, not hidden
+
+Long agent sessions hit LLM context limits. Most systems fail silently or crash. Ours:
+- Tracks token usage in real time with an arc gauge in the header
+- Shows an amber warning banner before the limit is reached
+- Compacts the context window automatically (sliding window + summarisation)
+- Drops a visible banner when compaction happens so the user always knows what the agent is doing
+
+### Hard HITL gate — not advisory
+
+The remediation plan cannot execute without explicit human approval. This is enforced at the gateway level, not just in the UI. The human can also provide natural-language revision feedback to regenerate the plan before approving.
+
+### Honest about what's real
+
+- **Mock mode (default):** fully scripted, no external APIs, runs in Docker with one command
+- **Live mode:** real Claude calls through AgentCore + AgentGateway; real AWS/Datadog/PagerDuty with credentials
+- **RegistryService:** fully designed and specced; implementation is the next milestone
+
+---
 
 ---
 
