@@ -5,19 +5,24 @@
 ---
 
 > [!IMPORTANT]
-> **What we built — from scratch — for this hackathon:**
+> **Built for this hackathon:**
 >
 > | | |
 > |---|---|
-> | **5 production services** | AuthService · AgentGateway · AgentCore · RegistryService · SREDemo |
-> | **1 React web UI** | Real-time SSE streaming · Budget gauge · Plan history · HITL approval |
-> | **Plan Memory** | Agent learns from past incidents and injects few-shot examples into the planner |
-> | **Context budget management** | Token estimation · sliding window compaction · live gauge — made visible to the user |
-> | **Human-in-the-loop** | Hard stop before any remediation action — not advisory, not optional |
-> | **121 tests in AgentCore** | Unit + integration coverage across all 9 agent nodes |
-> | **Full mock mode** | Zero external credentials needed — runs completely offline |
+> | **SREDemo** | Brand new — React web UI, FastAPI SSE backend, synthetic data layer, mock agent runner |
+> | **Plan Memory** | New in AgentCore — few-shot retrieval from past incidents injected into the planner prompt |
+> | **Playbook Evolution** | New in AgentCore — pattern extraction from resolved incidents, suggestions API |
+> | **Context budget management** | New in AgentGateway — token estimation, sliding window compaction, summarisation on eviction |
+> | **Auth + session integration** | AgentGateway wired end-to-end to AuthService (RS256 JWT) and AgentCore |
+> | **Model selection** | SREDemo calls `GET /models`, user picks LLM, gateway forwards to AgentCore |
 >
-> Every service is new. The entire platform was designed and built specifically for this submission.
+> **Pre-existing foundation (not claimed as hackathon work):**
+>
+> | | |
+> |---|---|
+> | **AgentCore framework** | LangGraph StateGraph, 9 nodes (intent → plan → HITL → CoT → entities → execute → report), DAG executor, 121 tests |
+> | **AuthService** | RS256 JWT issuance, JWKS endpoint, bcrypt user store |
+> | **AgentGateway core** | JWT verification, session binding, invoke/resume endpoints |
 
 ---
 
