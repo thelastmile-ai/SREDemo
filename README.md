@@ -45,7 +45,14 @@ SRE types one sentence →  agent investigates → agent proposes a plan
 
 ---
 
-## Live Demo
+## Demos
+
+| | |
+|---|---|
+| **UI Demo** | [Watch on YouTube](https://youtu.be/A8aPfyaKCwA) — full walkthrough of the React UI, Plan Memory, HITL approval, and context budget gauge |
+| **VC Pitch** | [Watch on YouTube](https://youtu.be/PPCxJffPzeg) — 3-minute investor pitch covering the problem, solution, and platform architecture |
+
+## Run It Locally
 
 ```bash
 git clone https://github.com/thelastmile-ai/SREDemo
