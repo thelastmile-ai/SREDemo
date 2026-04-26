@@ -10,19 +10,17 @@
 > | | |
 > |---|---|
 > | **SREDemo** | Brand new — React web UI, FastAPI SSE backend, synthetic data layer, mock agent runner |
+> | **AuthService** | Brand new — RS256 JWT issuance, JWKS endpoint, bcrypt user store, Alembic migrations |
+> | **AgentGateway** | Brand new — JWT verification, session binding, invoke/resume endpoints, context budget management, sliding window compaction, summarisation on eviction, model registry |
 > | **Plan Memory** | New in AgentCore — few-shot retrieval from past incidents injected into the planner prompt |
 > | **Playbook Evolution** | New in AgentCore — pattern extraction from resolved incidents, suggestions API |
-> | **Context budget management** | New in AgentGateway — token estimation, sliding window compaction, summarisation on eviction |
-> | **Auth + session integration** | AgentGateway wired end-to-end to AuthService (RS256 JWT) and AgentCore |
-> | **Model selection** | SREDemo calls `GET /models`, user picks LLM, gateway forwards to AgentCore |
+> | **Model selection** | SREDemo calls `GET /models`, user picks LLM, gateway forwards choice to AgentCore |
 >
 > **Pre-existing foundation (not claimed as hackathon work):**
 >
 > | | |
 > |---|---|
 > | **AgentCore framework** | LangGraph StateGraph, 9 nodes (intent → plan → HITL → CoT → entities → execute → report), DAG executor, 121 tests |
-> | **AuthService** | RS256 JWT issuance, JWKS endpoint, bcrypt user store |
-> | **AgentGateway core** | JWT verification, session binding, invoke/resume endpoints |
 
 ---
 
