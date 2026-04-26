@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+dist/
+.pytest_cache/
+node_modules/
+sre_demo/web/frontend/dist/
+.DS_Store
+*.webm
+debug_*.png
